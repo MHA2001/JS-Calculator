@@ -36,6 +36,16 @@ export default class Calculator {
 		}
 		this.primaryOperand = this.primaryOperandDisplay.dataset.value + digit;
 	}
+	removeDigit() {
+		const numberString = this.primaryOperandDisplay.dataset.value;
+
+		if (numberString.length < 1) {
+			this.primaryOperand = 0;
+			return;
+		}
+
+		this.primaryOperand = numberString.substring(0, numberString.length - 1);
+	}
 
 	clear() {
 		this.primaryOperand = 0;
