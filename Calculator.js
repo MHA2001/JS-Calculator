@@ -23,6 +23,9 @@ export default class Calculator {
 		this.secondaryOperandDisplay.dataset.value = value ?? '';
 		this.secondaryOperandDisplay.textContent = displayNumber(value) ?? '';
 	}
+	get operation() {
+		return this.secondaryOperandDisplay.textContent;
+	}
 	set operation(value) {
 		this.secondaryOperandDisplay.textContent = value ?? '';
 	}
@@ -47,6 +50,37 @@ export default class Calculator {
 		this.primaryOperand = numberString.substring(0, numberString.length - 1);
 	}
 
+	evaluate() {
+		let result;
+		switch (this.operation) {
+			case '*':
+				result = this.secondaryOperand * this.primaryOperand;
+				break;
+			case '÷':
+				result = this.secondaryOperand / this.primaryOperand;
+				break;
+			case '+':
+				result = this.secondaryOperand + t his.primaryOperand;
+				break;
+			case '-':
+				result = this.secondaryOperand - this.primaryOperand;
+				break;
+			default:
+				return;
+		}
+
+		this.clear();
+		this.primaryOperand = result;
+
+		return result;
+	}
+
+	chooseOperation(operation) {
+		if (this.operation !== '') return;
+		this.operation = operation;
+		this.secondaryOperand = this.primaryOperand;
+		this.primaryOperand = 0;
+	}
 	clear() {
 		this.primaryOperand = 0;
 		this.secondaryOperand = null;
