@@ -60,7 +60,7 @@ export default class Calculator {
 				result = this.secondaryOperand / this.primaryOperand;
 				break;
 			case '+':
-				result = this.secondaryOperand + t his.primaryOperand;
+				result = this.secondaryOperand + this.primaryOperand;
 				break;
 			case '-':
 				result = this.secondaryOperand - this.primaryOperand;
