@@ -1,4 +1,4 @@
-import Calculator from '/Calculator';
+import Calculator from '/Calculator.js';
 
 const primaryOperandDisplay = document.querySelector('[data-primary-operand]');
 const secondaryOperandDisplay = document.querySelector(

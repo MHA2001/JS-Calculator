@@ -4,45 +4,60 @@ export default class Calculator {
 		secondaryOperandDisplay,
 		operationDisplay
 	) {
-		this.primaryOperandDisplay = primaryOperandDisplay;
-		this.secondaryOperandDisplay = secondaryOperandDisplay;
-		this.operationDisplayDisplay = operationDisplay;
+		this.#primaryOperandDisplay = primaryOperandDisplay;
+		this.#secondaryOperandDisplay = secondaryOperandDisplay;
+		this.#operationDisplay = operationDisplay;
+
+		this.clear();
 	}
 
+	#primaryOperandDisplay;
+	#secondaryOperandDisplay;
+	#operationDisplay;
+
 	get primaryOperand() {
-		return parseFloat(this.primaryOperandDisplay.dataset.value);
+		return parseFloat(this.#primaryOperandDisplay.dataset.value);
 	}
+
 	set primaryOperand(value) {
-		this.primaryOperandDisplay.dataset.value = value ?? '';
-		this.primaryOperandDisplay.textContent = displayNumber(value) ?? '';
+		this.#primaryOperandDisplay.dataset.value = value ?? '';
+		this.#primaryOperandDisplay.textContent = displayNumber(value);
 	}
+
 	get secondaryOperand() {
-		return parseFloat(this.secondaryOperandDisplay.dataset.value);
+		return parseFloat(this.#secondaryOperandDisplay.dataset.value);
 	}
+
 	set secondaryOperand(value) {
-		this.secondaryOperandDisplay.dataset.value = value ?? '';
-		this.secondaryOperandDisplay.textContent = displayNumber(value) ?? '';
+		this.#secondaryOperandDisplay.dataset.value = value ?? '';
+		this.#secondaryOperandDisplay.textContent = displayNumber(value);
 	}
+
 	get operation() {
-		return this.secondaryOperandDisplay.textContent;
+		return this.#operationDisplay.textContent;
 	}
+
 	set operation(value) {
-		this.secondaryOperandDisplay.textContent = value ?? '';
+		this.#operationDisplay.textContent = value ?? '';
 	}
 
 	addDigit(digit) {
-		if (digit == '.' && this.primaryOperandDisplay.dataset.value.includes('.'))
+		if (
+			digit === '.' &&
+			this.#primaryOperandDisplay.dataset.value.includes('.')
+		) {
 			return;
+		}
 		if (this.primaryOperand === 0) {
 			this.primaryOperand = digit;
 			return;
 		}
-		this.primaryOperand = this.primaryOperandDisplay.dataset.value + digit;
+		this.primaryOperand = this.#primaryOperandDisplay.dataset.value + digit;
 	}
-	removeDigit() {
-		const numberString = this.primaryOperandDisplay.dataset.value;
 
-		if (numberString.length < 1) {
+	removeDigit() {
+		const numberString = this.#primaryOperandDisplay.dataset.value;
+		if (numberString.length <= 1) {
 			this.primaryOperand = 0;
 			return;
 		}
@@ -81,6 +96,7 @@ export default class Calculator {
 		this.secondaryOperand = this.primaryOperand;
 		this.primaryOperand = 0;
 	}
+
 	clear() {
 		this.primaryOperand = 0;
 		this.secondaryOperand = null;
